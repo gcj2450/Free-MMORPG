@@ -1,6 +1,6 @@
 package com.assambra.masterserver.plugin.controller;
 
-import com.assambra.masterserver.common.entity.User;
+import com.assambra.masterserver.common.entity.Account;
 import com.assambra.masterserver.common.masterserver.entity.UnityRoom;
 import com.assambra.masterserver.plugin.service.ServerService;
 import com.assambra.masterserver.plugin.service.UserService;
@@ -29,7 +29,7 @@ public class UserLoginController extends EzyAbstractPluginEventController<EzyUse
     {
         String username = event.getUsername();
         String password = encodePassword(event.getPassword());
-        User user = userService.getUser(username);
+        Account account = userService.getUser(username);
 
         if(event.getUsername().contains("Guest#"))
         {
@@ -40,11 +40,11 @@ public class UserLoginController extends EzyAbstractPluginEventController<EzyUse
         }
         else if(!serverServicePlugin.getServerUsernames().contains(username))
         {
-            if (user == null) {
+            if (account == null) {
                 throw new EzyLoginErrorException(EzyLoginError.INVALID_USERNAME);
             }
 
-            if (!user.getPassword().equals(password)) {
+            if (!account.getPassword().equals(password)) {
                 throw new EzyLoginErrorException(EzyLoginError.INVALID_PASSWORD);
             }
 
@@ -56,7 +56,7 @@ public class UserLoginController extends EzyAbstractPluginEventController<EzyUse
             {
                 if(server.getName().equals(username))
                 {
-                    if(server.getUserPassword().equals(event.getPassword()))
+                    if(server.getServerUserPassword().equals(event.getPassword()))
                         logger.info("Server: {}, logged in", username);
                     else
                     {

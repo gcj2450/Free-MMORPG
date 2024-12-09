@@ -25,7 +25,7 @@ namespace Assambra.FreeClient
         [SerializeField] private EzySocketConfig _socketConfig;
         [SerializeField] private string _guestPassword = "Assambra";
 
-        private LoginState _loginState;
+        private bool _isInitialized = false;
 
         private bool _characterListReseived;
         private bool _despawnInProgress;
@@ -37,7 +37,7 @@ namespace Assambra.FreeClient
             else
                 Instance = this;
 
-            _loginState = LoginState.Lobby;
+            LoginState = LoginState.Lobby;
         }
 
         private new void OnEnable()
@@ -45,8 +45,8 @@ namespace Assambra.FreeClient
             base.OnEnable();
 
             // User
-            AddHandler<EzyObject>(Commands.CREATE_USER, OnCreateUserResponse);
-            AddHandler<EzyObject>(Commands.ACTIVATE_USER, OnActivateUserResponse);
+            AddHandler<EzyObject>(Commands.CREATE_ACCOUNT, OnCreateUserResponse);
+            AddHandler<EzyObject>(Commands.ACTIVATE_ACCOUNT, OnActivateUserResponse);
             AddHandler<EzyObject>(Commands.RESEND_ACTIVATION_MAIL, OnResendActivationMail);
             AddHandler<EzyObject>(Commands.FORGOT_PASSWORD, OnForgotPasswordResponse);
             AddHandler<EzyObject>(Commands.FORGOT_USERNAME, OnForgotUsernameResponse);
@@ -97,24 +97,29 @@ namespace Assambra.FreeClient
 
         public void Login(string username, string password)
         {
-            socketProxy.onLoginSuccess<Object>(OnLoginSucess);
-            socketProxy.onLoginError<Object>(OnLoginError);
-            socketProxy.onAppAccessed<Object>(OnAppAccessed);
+            if(!_isInitialized)
+            {   
+                socketProxy.onLoginSuccess<Object>(OnLoginSucess);
+                socketProxy.onLoginError<Object>(OnLoginError);
+                socketProxy.onAppAccessed<Object>(OnAppAccessed);
+
+                socketProxy.setUrl(_socketConfig.TcpUrl);
+                socketProxy.setUdpPort(_socketConfig.UdpPort);
+                socketProxy.setDefaultAppName(_socketConfig.AppName);
+
+                if (_socketConfig.UdpUsage)
+                {
+                    socketProxy.setTransportType(EzyTransportType.UDP);
+                    socketProxy.onUdpHandshake<Object>(OnUdpHandshake);
+                }
+                else
+                    socketProxy.setTransportType(EzyTransportType.TCP);
+
+                _isInitialized = true;
+            }
 
             socketProxy.setLoginUsername(username);
             socketProxy.setLoginPassword(password);
-
-            socketProxy.setUrl(_socketConfig.TcpUrl);
-            socketProxy.setUdpPort(_socketConfig.UdpPort);
-            socketProxy.setDefaultAppName(_socketConfig.AppName);
-
-            if (_socketConfig.UdpUsage)
-            {
-                socketProxy.setTransportType(EzyTransportType.UDP);
-                socketProxy.onUdpHandshake<Object>(OnUdpHandshake);
-            }
-            else
-                socketProxy.setTransportType(EzyTransportType.TCP);
 
             StartCoroutine(WaitForDisconnectIfConnected());
         }
@@ -134,8 +139,6 @@ namespace Assambra.FreeClient
 
         public void CreateAccount(string email, string username, string password)
         {
-            GameManager.Instance.Account = username;
-
             EzyObject data = EzyEntityFactory
             .newObjectBuilder()
             .append("email", email)
@@ -143,25 +146,23 @@ namespace Assambra.FreeClient
             .append("password", password)
             .build();
 
-            appProxy.send(Commands.CREATE_USER, data, _socketConfig.EnableSSL);
+            appProxy.send(Commands.CREATE_ACCOUNT, data, _socketConfig.EnableSSL);
         }
 
         public void ActivateAccount(string activationcode)
         {
             EzyObject data = EzyEntityFactory
             .newObjectBuilder()
-            .append("username", GameManager.Instance.Account)
             .append("activationCode", activationcode)
             .build();
 
-            appProxy.send(Commands.ACTIVATE_USER, data);
+            appProxy.send(Commands.ACTIVATE_ACCOUNT, data);
         }
 
         public void ResendActivationCodeEmail()
         {
             EzyObject data = EzyEntityFactory
                 .newObjectBuilder()
-                .append("username", GameManager.Instance.Account)
                 .build();
 
             appProxy.send(Commands.RESEND_ACTIVATION_MAIL, data);
@@ -213,11 +214,11 @@ namespace Assambra.FreeClient
             appProxy.send(Commands.CREATE_CHARACTER, characterdata);
         }
 
-        public void PlayRequest(long id)
+        public void PlayRequest(long playerId)
         {
             EzyObject data = EzyEntityFactory
                 .newObjectBuilder()
-                .append("id", id)
+                .append("playerId", playerId)
                 .build();
 
             appProxy.send(Commands.PLAY, data);
@@ -240,7 +241,12 @@ namespace Assambra.FreeClient
         {
             string error = data.ToString();
             if (error.Contains("invalid password") || error.Contains("invalid user name"))
+            {
                 ErrorPopup("Username or password is incorrect. Please check your entries and try again.");
+
+                LoginState = LoginState.Lobby;
+                Login(CreateGuestName(), _guestPassword);
+            } 
         }
 
         private void OnUdpHandshake(EzySocketProxy proxy, Object data)

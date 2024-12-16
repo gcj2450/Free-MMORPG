@@ -12,8 +12,7 @@ GameObject:
   - component: {fileID: 8589574787961825693}
   - component: {fileID: 3557437099142914040}
   - component: {fileID: 6391312384079076106}
-  - component: {fileID: 90487678907464084}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,26 +102,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!1183024399 &90487678907464084
-LookAtConstraint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 192496004948987284}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Weight: 1
-  m_RotationAtRest: {x: 0, y: 0, z: 0}
-  m_RotationOffset: {x: 0, y: 0, z: 0}
-  m_Roll: 0
-  m_WorldUpObject: {fileID: 0}
-  m_UseUpObject: 0
-  m_Active: 1
-  m_IsLocked: 0
-  m_Sources:
-  - sourceTransform: {fileID: 0}
-    weight: 1
 --- !u!1 &471186384214967346
 GameObject:
   m_ObjectHideFlags: 0
@@ -136,9 +115,9 @@ GameObject:
   - component: {fileID: 5082358268722611675}
   - component: {fileID: 5584900385909291113}
   - component: {fileID: 7747567344234363101}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -173,6 +152,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entityNameInfo: {fileID: 6095457073473621084}
+  _entityModel:
+    _entityGameObject: {fileID: 0}
+    _id: 0
+    _entityType: 0
+    _name: 
+    _model: 
+    _position: {x: 0, y: 0, z: 0}
+    _rotation: {x: 0, y: 0, z: 0, w: 0}
+    _sex: 
+    _race: 
+    _room: 
+    _isLocalPlayer: 0
   _playerController: {fileID: 7747567344234363101}
   Initialized: 0
   IsAvatarCreated: 0
@@ -205,7 +196,7 @@ CharacterController:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -216,7 +207,7 @@ CharacterController:
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
+  m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7747567344234363101
 MonoBehaviour:
@@ -240,7 +231,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3406901771279141174}
   - component: {fileID: 6095457073473621084}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EntityNameInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -289,7 +280,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2479443068352586371}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: 3DModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -323,7 +314,7 @@ GameObject:
   - component: {fileID: 391551849367897913}
   - component: {fileID: 1257924789392892000}
   - component: {fileID: 2083948034734061145}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TextEntityName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -379,8 +370,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ce1ad1aba987abb489160270ac82799c, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: ce1ad1aba987abb489160270ac82799c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -404,8 +395,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 12
-  m_fontSizeBase: 12
+  m_fontSize: 15
+  m_fontSizeBase: 15
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -458,6 +449,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MyUMADynamicCharacterAvatar
       objectReference: {fileID: 0}
+    - target: {fileID: 153068, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 487678, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -505,7 +500,7 @@ PrefabInstance:
     - target: {fileID: 11453600, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
       propertyPath: umaData
       value: 
-      objectReference: {fileID: 1577034562047970876}
+      objectReference: {fileID: 5441103389551606318}
     - target: {fileID: 11453600, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
       propertyPath: animationController
       value: 
@@ -592,24 +587,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4757962627389437816, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
+    - {fileID: 5548432647977589970, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 153068, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5238699868055525030}
+    - targetCorrespondingSourceObject: {fileID: 153068, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5441103389551606318}
   m_SourcePrefab: {fileID: 100100000, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
---- !u!114 &1577034562047970876 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5548432647977589970, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
-  m_PrefabInstance: {fileID: 6421357417258308334}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6421357417258419970}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15ee0e75ac30e964b8dcd0ad5f953c15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6421357417252951630 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 11453600, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}
@@ -649,6 +637,85 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5441103389551606318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6421357417258419970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15ee0e75ac30e964b8dcd0ad5f953c15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderers: []
+  userInformation: 
+  rawAvatar: 0
+  raceChanged: 0
+  hideRenderers: 0
+  umaGenerator: {fileID: 0}
+  OverrideTpose: {fileID: 0}
+  atlasResolutionScale: 1
+  ForceRebindAnimator: 0
+  isMeshDirty: 0
+  isShapeDirty: 0
+  isTextureDirty: 0
+  isAtlasDirty: 0
+  animationController: {fileID: 0}
+  CharacterCreated:
+    m_PersistentCalls:
+      m_Calls: []
+  CharacterDestroyed:
+    m_PersistentCalls:
+      m_Calls: []
+  CharacterUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  CharacterBeforeUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  CharacterBeforeDnaUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  CharacterDnaUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  CharacterBegun:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: RandomHead
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  AnimatorStateSaved:
+    m_PersistentCalls:
+      m_Calls: []
+  AnimatorStateRestored:
+    m_PersistentCalls:
+      m_Calls: []
+  PreUpdateUMABody:
+    m_PersistentCalls:
+      m_Calls: []
+  umaRoot: {fileID: 0}
+  _umaRecipe:
+    raceData: {fileID: 0}
+    dnaValues: []
+    slotDataList: []
+    sharedColors: []
+  animator: {fileID: 0}
+  KeepAvatar: 0
+  characterHeight: 2
+  characterRadius: 0.25
+  characterMass: 50
 --- !u!4 &6421357417258754576 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 487678, guid: 2787bae03504eb345ac0c2e5362d7129, type: 3}

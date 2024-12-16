@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 
-namespace Assambra.Client
+namespace Assambra.FreeClient
 {
     public class Portal : MonoBehaviour
     {
@@ -11,6 +11,11 @@ namespace Assambra.Client
         private void Awake()
         {
             _portalNameText.text = _portalName + " portal";
+        }
+
+        private void LateUpdate()
+        {
+            _portalNameText.transform.rotation = GameManager.Instance.CameraController.transform.rotation;
         }
     }
 }

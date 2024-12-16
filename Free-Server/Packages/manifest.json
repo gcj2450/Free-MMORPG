@@ -1,9 +1,9 @@
 {
   "dependencies": {
+    "com.bytework.crest": "file:../../../UMA/UMAProject/Assets/Crest",
     "com.bytework.ezyfox.sharp.client": "file:../../../Master-Server-Unity/Unity-Server/Packages/com.bytework.ezyfox.sharp.client",
+    "com.bytework.mapmagic": "file:../../../UMA/UMAProject/Assets/MapMagic",
     "com.bytework.uma": "file:../../../UMA/UMAProject/Assets/UMA",
-	"com.bytework.mapmagic": "file:../../../UMA/UMAProject/Assets/MapMagic",
-	"com.bytework.crest": "file:../../../UMA/UMAProject/Assets/Crest",
     "com.unity.addressables": "1.21.21",
     "com.unity.burst": "1.8.18",
     "com.unity.ide.visualstudio": "2.0.22",

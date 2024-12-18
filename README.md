@@ -284,7 +284,7 @@ use free
 db.createUser({
   user: "root", 
   pwd: "123456", 
-  roles: [{role: "readWrite", db: "master-server"}]
+  roles: [{role: "readWrite", db: "free"}]
 })
 ```
 5. Create the following collections:
@@ -391,7 +391,7 @@ In following examples, we use allways the location: `D:\ezyfox-server`.
 3. Add the following zones inside the `<zones>` tag:
 ```
 <zone>
-    <name>free-master-server</name>
+    <name>master-server</name>
     <config-file>free-master-server-zone-settings.xml</config-file>
     <active>true</active>
 </zone>

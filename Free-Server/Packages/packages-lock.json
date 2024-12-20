@@ -19,9 +19,9 @@
       "dependencies": {}
     },
     "com.bytework.quantumconsole": {
-      "version": "file:Quantum Console",
+      "version": "file:../../../Master-Server-Unity/Unity-Server/Packages/Quantum Console",
       "depth": 0,
-      "source": "embedded",
+      "source": "local",
       "dependencies": {}
     },
     "com.bytework.uma": {

@@ -2,6 +2,7 @@
   "dependencies": {
     "com.bytework.crest": "file:../../../UMA/UMAProject/Assets/Crest",
     "com.bytework.ezyfox.sharp.client": "file:../../../Master-Server-Unity/Unity-Server/Packages/com.bytework.ezyfox.sharp.client",
+	"com.bytework.quantumconsole": "file:../../../Master-Server-Unity/Unity-Server/Packages/Quantum Console",
     "com.bytework.mapmagic": "file:../../../UMA/UMAProject/Assets/MapMagic",
     "com.bytework.uma": "file:../../../UMA/UMAProject/Assets/UMA",
     "com.unity.addressables": "1.21.21",
